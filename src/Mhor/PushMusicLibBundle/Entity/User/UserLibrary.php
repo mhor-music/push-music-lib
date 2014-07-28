@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserLibrary
  *
- * @ORM\Table()
+ * @ORM\Table(name="user_library")
  * @ORM\Entity
  */
 class UserLibrary

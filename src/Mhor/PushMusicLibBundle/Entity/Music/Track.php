@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Track
  *
- * @ORM\Table()
+ * @ORM\Table(name="track")
  * @ORM\Entity
  */
 class Track
@@ -42,6 +42,31 @@ class Track
      */
     private $number;
 
+    /**
+     * @var Album
+     * @ORM\ManyToOne(
+     *  targetEntity="Mhor\PushMusicLibBundle\Entity\Music\Album",
+     *  inversedBy="tracks"
+     * )
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $album;
+
+    /**
+     * @var Style
+     * @ORM\ManyToOne(
+     *  targetEntity="Mhor\PushMusicLibBundle\Entity\Music\Style")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $style;
+
+    /**
+     * @var Artist
+     * @ORM\ManyToOne(
+     *  targetEntity="Mhor\PushMusicLibBundle\Entity\Music\Artist")
+     * @ORM\JoinColumn(nullable=false)
+     */
+     private $artist;
 
     /**
      * Get id
@@ -120,5 +145,59 @@ class Track
     public function getNumber()
     {
         return $this->number;
+    }
+
+    /**
+     * @return Album
+     */
+    public function getAlbum()
+    {
+        return $this->album;
+    }
+
+    /**
+     * @param Album $album
+     * @return Track
+     */
+    public function setAlbum(Album $album)
+    {
+        $this->album = $album;
+        return $this;
+    }
+
+    /**
+     * @return Style
+     */
+    public function getStyle()
+    {
+        return $this->style;
+    }
+
+    /**
+     * @param Style $style
+     * @return Track
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+        return $this;
+    }
+
+    /**
+     * @return Artist
+     */
+    public function getArtist()
+    {
+        return $this->artist;
+    }
+
+    /**
+     * @param Artist $artist
+     * @return Track
+     */
+    public function setArtist($artist)
+    {
+        $this->artist = $artist;
+        return $this;
     }
 }

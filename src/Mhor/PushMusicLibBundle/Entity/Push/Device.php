@@ -2,12 +2,14 @@
 
 namespace Mhor\PushMusicLibBundle\Entity\Push;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Mhor\PushMusicLibBundle\Entity\User\User;
 
 /**
  * Device
  *
- * @ORM\Table()
+ * @ORM\Table(name="device")
  * @ORM\Entity
  */
 class Device
@@ -24,14 +26,14 @@ class Device
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string")
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=255)
+     * @ORM\Column(name="token", type="string")
      */
     private $token;
 
@@ -45,10 +47,31 @@ class Device
     /**
      * @var string
      *
-     * @ORM\Column(name="androidId", type="string", length=255)
+     * @ORM\Column(name="androidId", type="string")
      */
     private $androidId;
 
+    /**
+     * @var User
+     * @ORM\ManyToOne(
+     *  targetEntity="Mhor\PushMusicLibBundle\Entity\User\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(
+     *  targetEntity="Mhor\PushMusicLibBundle\Entity\Push\Push",
+     *  mappedBy="device"
+     * )
+     */
+    private $pushs;
+
+    public function __construct()
+    {
+        $this->pushs = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -124,7 +147,6 @@ class Device
         return $this;
     }
 
-
     /**
      * Set androidId
      *
@@ -147,4 +169,24 @@ class Device
     {
         return $this->androidId;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return Device
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
 }

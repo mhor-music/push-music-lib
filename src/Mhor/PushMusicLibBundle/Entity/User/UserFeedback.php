@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserFeedback
  *
- * @ORM\Table()
+ * @ORM\Table(name="user_feedback")
  * @ORM\Entity
  */
 class UserFeedback
@@ -34,7 +34,6 @@ class UserFeedback
      * @ORM\Column(name="comment", type="text")
      */
     private $comment;
-
 
     /**
      * Get id

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Push
  *
- * @ORM\Table()
+ * @ORM\Table(name="push")
  * @ORM\Entity
  */
 class Push
@@ -43,9 +43,33 @@ class Push
     private $success;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="first", type="boolean")
+     */
+    private $first = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="last", type="boolean")
+     */
+    private $last = false;
+
+    /**
+     * @var Device
+     * @ORM\ManyToOne(
+     *  targetEntity="Mhor\PushMusicLibBundle\Entity\Push\Device",
+     *  inversedBy="pushs"
+     * )
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $device;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -68,7 +92,7 @@ class Push
     /**
      * Get createdDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedDate()
     {
@@ -108,6 +132,60 @@ class Push
     public function setChunk($chunk)
     {
         $this->chunk = $chunk;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getFirst()
+    {
+        return $this->first;
+    }
+
+    /**
+     * @param boolean $first
+     * @return Push
+     */
+    public function setFirst($first)
+    {
+        $this->first = $first;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getLast()
+    {
+        return $this->last;
+    }
+
+    /**
+     * @param boolean $last
+     * @return Push
+     */
+    public function setLast($last)
+    {
+        $this->last = $last;
+        return $this;
+    }
+
+    /**
+     * @return Device
+     */
+    public function getDevice()
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param Device $device
+     * @return Push
+     */
+    public function setDevice($device)
+    {
+        $this->device = $device;
         return $this;
     }
 }

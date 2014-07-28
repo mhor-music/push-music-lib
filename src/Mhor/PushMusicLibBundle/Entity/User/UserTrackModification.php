@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserTrackModification
  *
- * @ORM\Table()
+ * @ORM\Table(name="user_track_modification")
  * @ORM\Entity
  */
 class UserTrackModification
@@ -48,7 +48,6 @@ class UserTrackModification
      * @ORM\Column(name="deletion", type="boolean")
      */
     private $deletion;
-
 
     /**
      * Get id

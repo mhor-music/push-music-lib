@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Artist
  *
- * @ORM\Table()
+ * @ORM\Table(name="artist")
  * @ORM\Entity
  */
 class Artist
@@ -24,10 +24,9 @@ class Artist
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string")
      */
     private $name;
-
 
     /**
      * Get id
