@@ -1,0 +1,4 @@
+music_push:
+    resource: "@MhorPushMusicLibBundle/Controller"
+    type:     annotation
+    prefix:   /
