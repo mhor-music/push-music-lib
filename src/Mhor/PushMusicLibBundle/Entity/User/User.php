@@ -35,6 +35,12 @@ class User
      */
     private $lastname;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="login", type="string")
+     */
+    private $login;
 
     /**
      * Get id
@@ -90,5 +96,23 @@ class User
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param string $login
+     * @return User
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+        return $this;
     }
 }

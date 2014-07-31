@@ -12,26 +12,57 @@ class LibraryControllerTest extends WebTestCase
      */
     protected $user;
 
-    public function testShowAlbums()
+    public function __construct()
+    {
+        $this->user = new User();
+        $this->user->setFirstname('maxime');
+        $this->user->setLastname('horcholle');
+        $this->user->setLogin('mhor');
+    }
+
+    public function testShowAlbumsWithoutUser()
     {
         $client = static::createClient();
         $client->request('GET', '/albums');
         $this->assertEquals($client->getResponse()->getStatusCode(), 200);
-        $this->assertEquals($client->getResponse()->getContent(), "");
+        $this->assertEquals($client->getResponse()->getContent(), "userId => ");
 
     }
 
-    public function testShowTracks()
+    public function testShowTracksWithoutUser()
     {
         $client = static::createClient();
         $client->request('GET', 'album/99999/tracks');
         $this->assertEquals($client->getResponse()->getStatusCode(), 404);
     }
 
-    public function testShowTrack()
+    public function testShowTrackWithoutUser()
     {
         $client = static::createClient();
         $client->request('GET', 'track/99999');
+        $this->assertEquals($client->getResponse()->getStatusCode(), 404);
+    }
+
+    public function testShowAlbumsWithUser()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/albums/' . $this->user->getLogin());
+        $this->assertEquals($client->getResponse()->getStatusCode(), 200);
+        $this->assertEquals($client->getResponse()->getContent(), "userId => mhor");
+
+    }
+
+    public function testShowTracksWithUser()
+    {
+        $client = static::createClient();
+        $client->request('GET', 'album/99999/tracks/'. $this->user->getLogin());
+        $this->assertEquals($client->getResponse()->getStatusCode(), 404);
+    }
+
+    public function testShowTrackWithUser()
+    {
+        $client = static::createClient();
+        $client->request('GET', 'track/99999/' . $this->user->getLogin());
         $this->assertEquals($client->getResponse()->getStatusCode(), 404);
     }
 }
